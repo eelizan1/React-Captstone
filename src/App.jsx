@@ -4,12 +4,12 @@ import SignUpPage from './pages/auth/SignUpPage';
 
 const App = () => {
   return (
-    <BrowserRounter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignInPage />}></Route>
         <Route path="/sign-up" element={<SignUpPage />}></Route>
       </Routes>
-    </BrowserRounter>
+    </BrowserRouter>
   );
 };
 
