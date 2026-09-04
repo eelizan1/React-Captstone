@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignInPage from './pages/auth/SignInPage';
+import SignUpPage from './pages/auth/SignUpPage';
 
 const App = () => {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>app</div>
-    </>
-  )
-}
+    <BrowserRounter>
+      <Routes>
+        <Route path="/" element={<SignInPage />}></Route>
+        <Route path="/sign-up" element={<SignUpPage />}></Route>
+      </Routes>
+    </BrowserRounter>
+  );
+};
 
-export default App
+export default App;
