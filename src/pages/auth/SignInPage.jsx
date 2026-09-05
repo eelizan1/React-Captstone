@@ -1,11 +1,21 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import AuthForm from './AuthForm/AuthForm';
 
 const SignInPage = () => {
   return (
-    <div className="font-lato text-blue-500">
-      Sign In
-      <FontAwesomeIcon icon={faFaceSmile} />
+    <div className="flex justify-center items-center">
+      <AuthForm
+        fields={[
+          {
+            label: 'username',
+            type: 'text',
+          },
+          {
+            label: 'password',
+            type: 'password',
+          },
+        ]}
+        submitButtonLabel="Sign In"
+      />
     </div>
   );
 };
