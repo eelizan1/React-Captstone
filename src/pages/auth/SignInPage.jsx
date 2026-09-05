@@ -1,8 +1,10 @@
 import AuthForm from './AuthForm/AuthForm';
+import FormContainer from './FormContainer';
+import { Link } from 'react-router-dom';
 
 const SignInPage = () => {
   return (
-    <div className="flex justify-center items-center">
+    <FormContainer>
       <AuthForm
         fields={[
           {
@@ -16,7 +18,10 @@ const SignInPage = () => {
         ]}
         submitButtonLabel="Sign In"
       />
-    </div>
+      <Link to="/sign-up" className="text-green-600 underline">
+        Create an account
+      </Link>
+    </FormContainer>
   );
 };
 
