@@ -7,7 +7,7 @@ import Field from './Field';
 //     password: 'password'
 // }
 
-const AuthForm = ({ fields, submitButtonLabel }) => {
+const AuthForm = ({ fields, submitButtonLabel, onSubmit }) => {
   // initializing values with empty fields prop values - need to iterate over fields to get empty values
   // have useState pass in a function to call the function to avoid re-renders
   const [values, setValues] = useState(() => {
@@ -20,10 +20,14 @@ const AuthForm = ({ fields, submitButtonLabel }) => {
     return initialState;
   });
 
-  console.log(values);
-
   return (
-    <form className="p-4 m-4 bg-white border border-slate-300 rounded-lg font-lato">
+    <form
+      className="p-4 m-4 bg-white border border-slate-300 rounded-lg font-lato"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(values);
+      }}
+    >
       {fields.map((field) => {
         return (
           <Field
