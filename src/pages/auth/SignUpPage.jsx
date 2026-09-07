@@ -6,6 +6,40 @@ import * as userService from '../../services/user';
 
 const SignUpPage = () => {
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // use async await pattern
+  const handleSubmit = async (values) => {
+    if (values.username.length < 4) {
+      setError('username must be at least 4 characters');
+      return;
+    }
+    if (values.password.length < 4) {
+      setError('password must be at least 4 characters');
+      return;
+    }
+    if (values.password != values['confirm password']) {
+      setError('password and confirm password do not match');
+      return;
+    }
+
+    const body = {
+      username: values.username,
+      password: values.password,
+    };
+
+    // this would be lke the "fetch" operation
+    const response = await userService.createUser(body);
+
+    if (response.status == 201) {
+      setError('');
+      console.log('User Created');
+    } else {
+      const data = await response.json();
+      setError(data.error);
+    }
+  };
+
   return (
     <FormContainer>
       <div className="text-red-700 font-lato">{error}</div>
@@ -25,29 +59,7 @@ const SignUpPage = () => {
           },
         ]}
         submitButtonLabel="Create Account"
-        onSubmit={async (values) => {
-          if (values.username.length < 4) {
-            setError('username must be at least 4 characters');
-            return;
-          }
-          if (values.password.length < 4) {
-            setError('password must be at least 4 characters');
-            return;
-          }
-          if (values.password != values['confirm password']) {
-            setError('password and confirm password do not match');
-            return;
-          }
-
-          const body = {
-            username: values.username,
-            password: values.password,
-          };
-
-          const response = await userService.createUser(body);
-
-          console.log(response.status);
-        }}
+        onSubmit={handleSubmit}
       />
       <Link to="/" className="text-green-600 underline">
         Sign In
