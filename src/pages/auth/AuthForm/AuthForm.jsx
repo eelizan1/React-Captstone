@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Field from './Field';
 
 // values:
@@ -8,6 +10,7 @@ import Field from './Field';
 // }
 
 const AuthForm = ({ fields, submitButtonLabel, onSubmit }) => {
+  const [loading, setLoading] = useState(false);
   // initializing values with empty fields prop values - need to iterate over fields to get empty values
   // have useState pass in a function to call the function to avoid re-renders
   const [values, setValues] = useState(() => {
@@ -23,9 +26,11 @@ const AuthForm = ({ fields, submitButtonLabel, onSubmit }) => {
   return (
     <form
       className="p-4 m-4 bg-white border border-slate-300 rounded-lg font-lato"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        onSubmit(values);
+        setLoading(true);
+        await onSubmit(values);
+        setLoading(false);
       }}
     >
       {fields.map((field) => {
@@ -44,8 +49,17 @@ const AuthForm = ({ fields, submitButtonLabel, onSubmit }) => {
           />
         );
       })}
-      <button className="bg-emerald-700 text-white w-full rounded-lg py-2 mt-4">
+      <button className="bg-emerald-700 text-white w-full rounded-lg py-2 mt-4 relative">
         {submitButtonLabel}
+
+        {loading && (
+          <div className="absolute top-1 right-4 items-center h-full">
+            <FontAwesomeIcon
+              icon={faSpinner}
+              className="text-green-300 text-3xl animate-spin"
+            />
+          </div>
+        )}
       </button>
     </form>
   );

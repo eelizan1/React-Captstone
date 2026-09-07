@@ -6,7 +6,6 @@ import * as userService from '../../services/user';
 
 const SignUpPage = () => {
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   // use async await pattern
   const handleSubmit = async (values) => {
