@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import AuthForm from './AuthForm/AuthForm';
 import FormContainer from './FormContainer';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import * as userService from '../../services/user';
 
 const SignInPage = () => {
   const [error, setError] = useState('');
+  const location = useLocation();
 
   const handleSubmit = async (values) => {
     const body = {
@@ -24,6 +25,11 @@ const SignInPage = () => {
   return (
     <FormContainer>
       <div className="text-red-700 font-lato">{error}</div>
+      {location.state?.accountCreated && (
+        <div className="p-4 mb-8 bg-green-200 border rounded-lg border emerald-500 text-emerald-700">
+          Account created successfully. Please sign in
+        </div>
+      )}
       <AuthForm
         fields={[
           {

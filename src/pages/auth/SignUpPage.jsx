@@ -1,11 +1,12 @@
 import AuthForm from './AuthForm/AuthForm';
 import FormContainer from './FormContainer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import * as userService from 'services/user';
 
 const SignUpPage = () => {
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // use async await pattern
   const handleSubmit = async (values) => {
@@ -33,7 +34,11 @@ const SignUpPage = () => {
 
     if (response.status == 201) {
       setError('');
-      console.log('User Created');
+      navigate('/', {
+        state: {
+          accountCreated: true,
+        },
+      }); // navigate to root route (sign-in) and pass in data
     } else {
       setError(data.error);
     }
