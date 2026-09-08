@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import AuthForm from './AuthForm/AuthForm';
 import FormContainer from './FormContainer';
 import { Link, useLocation } from 'react-router-dom';
 import * as userService from '../../services/user';
+import SessionContext from 'context/SessionContext';
 
 const SignInPage = () => {
   const [error, setError] = useState('');
   const location = useLocation();
+  const sessionContext = useContext(SessionContext); // access to context for token operations
 
   const handleSubmit = async (values) => {
     const body = {
@@ -18,6 +20,7 @@ const SignInPage = () => {
 
     if (response.status == 201) {
       setError('');
+      sessionContext.signIn(data.capstone_session_token);
     } else {
       setError(data.error);
     }
