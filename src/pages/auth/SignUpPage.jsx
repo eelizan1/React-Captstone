@@ -29,12 +29,12 @@ const SignUpPage = () => {
 
     // this would be lke the "fetch" operation
     const response = await userService.createUser(body);
+    const data = await response.json();
 
     if (response.status == 201) {
       setError('');
       console.log('User Created');
     } else {
-      const data = await response.json();
       setError(data.error);
     }
   };
