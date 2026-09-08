@@ -3,6 +3,7 @@ import FormContainer from './FormContainer';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import * as userService from 'services/user';
+import RedirectToPlantsIfSignedIn from 'shared-components/RedirectToPlansIfSignedIn';
 
 const SignUpPage = () => {
   const [error, setError] = useState('');
@@ -45,30 +46,32 @@ const SignUpPage = () => {
   };
 
   return (
-    <FormContainer>
-      <div className="text-red-700 font-lato">{error}</div>
-      <AuthForm
-        fields={[
-          {
-            label: 'username',
-            type: 'text',
-          },
-          {
-            label: 'password',
-            type: 'password',
-          },
-          {
-            label: 'confirm password',
-            type: 'password',
-          },
-        ]}
-        submitButtonLabel="Create Account"
-        onSubmit={handleSubmit}
-      />
-      <Link to="/" className="text-green-600 underline">
-        Sign In
-      </Link>
-    </FormContainer>
+    <RedirectToPlantsIfSignedIn>
+      <FormContainer>
+        <div className="text-red-700 font-lato">{error}</div>
+        <AuthForm
+          fields={[
+            {
+              label: 'username',
+              type: 'text',
+            },
+            {
+              label: 'password',
+              type: 'password',
+            },
+            {
+              label: 'confirm password',
+              type: 'password',
+            },
+          ]}
+          submitButtonLabel="Create Account"
+          onSubmit={handleSubmit}
+        />
+        <Link to="/" className="text-green-600 underline">
+          Sign In
+        </Link>
+      </FormContainer>
+    </RedirectToPlantsIfSignedIn>
   );
 };
 

@@ -5,6 +5,7 @@ import SignUpPage from './pages/auth/SignUpPage';
 import * as userService from 'services/user';
 import SessionContext from 'context/SessionContext';
 import { jwtDecode } from 'jwt-decode';
+import PlantListPage from 'pages/PlantListPage';
 
 const App = () => {
   // on app load check if there is existing token
@@ -31,6 +32,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<SignInPage />}></Route>
           <Route path="/sign-up" element={<SignUpPage />}></Route>
+          <Route path="/plants" element={<PlantListPage />}></Route>
         </Routes>
       </BrowserRouter>
     </SessionContext.Provider>
