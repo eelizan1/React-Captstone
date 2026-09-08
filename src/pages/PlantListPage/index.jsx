@@ -1,5 +1,11 @@
+import NavBar from 'pages/NavBar';
+
 const PlantListPage = () => {
-  return <div>plant list</div>;
+  return (
+    <div>
+      <NavBar />
+    </div>
+  );
 };
 
 export default PlantListPage;
