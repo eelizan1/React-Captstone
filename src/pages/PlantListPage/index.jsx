@@ -25,8 +25,8 @@ const PlantListPage = () => {
 
   console.log(plants);
 
-  const plantItemsList = plants.map((plant, idx) => {
-    return <PlantItem key={idx} plant={plant} />;
+  const plantItemsList = plants.map((plant) => {
+    return <PlantItem key={plant.id} plant={plant} />;
   });
 
   return (
@@ -43,7 +43,7 @@ const PlantListPage = () => {
         ) : (
           <div className="flex justify-center py-24">
             <div className="w-full max-w-5xl">
-              <div className="text-4xl font-playfair text-emerald-800 mb-6">
+              <div className="text-4xl font-playfair text-emerald-800 mb-6 px-12">
                 Plants in Stock
               </div>
               <div className="flex flex-wrap justify-center">
