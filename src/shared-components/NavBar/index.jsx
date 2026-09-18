@@ -6,6 +6,7 @@ import {
   faArrowRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -16,13 +17,15 @@ const NavBar = () => {
       onMouseLeave={() => setUserMenuOpen(false)}
     >
       <div className="flex items-center justify-between w-full max-w-5xl px-8 py-2">
-        <div className="text-2xl text-white font-playfair flex flex-col items-center">
-          <img
-            className="w-10"
-            src="https://static-task-assets.react-formula-staging.com/capstone_logo_light.png"
-          />
-          Rica's Plants
-        </div>
+        <Link to="/plants">
+          <div className="text-2xl text-white font-playfair flex flex-col items-center">
+            <img
+              className="w-10"
+              src="https://static-task-assets.react-formula-staging.com/capstone_logo_light.png"
+            />
+            Rica's Plants
+          </div>
+        </Link>
         <div className="flex flex-1 justify-end">
           <div className="relative min-w-32">
             <button

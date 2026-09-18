@@ -5,6 +5,7 @@ import * as plantService from 'services/plant';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import PlantItem from './PlantItem';
+import LoadingSpinner from 'shared-components/LoadingSpinner';
 
 const PlantListPage = () => {
   const [plants, setPlants] = useState([]);
@@ -23,8 +24,6 @@ const PlantListPage = () => {
     fetchPlants(); // invoke plant api call
   }, []);
 
-  console.log(plants);
-
   const plantItemsList = plants.map((plant) => {
     return <PlantItem key={plant.id} plant={plant} />;
   });
@@ -34,12 +33,7 @@ const PlantListPage = () => {
       <NavBar />
       <div className="min-h-screen bg-green-50">
         {isLoading ? (
-          <div className="flex justify-center pt-40">
-            <FontAwesomeIcon
-              icon={faSpinner}
-              className="text-3xl text-emerald-600 animate-spin"
-            />
-          </div>
+          <LoadingSpinner />
         ) : (
           <div className="flex justify-center py-24">
             <div className="w-full max-w-5xl">

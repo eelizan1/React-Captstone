@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const POT_COLORS = {
   stone: 'bg-stone-200',
@@ -34,10 +35,12 @@ const PlantItem = ({ plant }) => {
 
   return (
     <div className="m-5">
-      <img
-        className="w-[280px] h-[320px] rounded-md"
-        src={plant.images[imageIdx].src}
-      />
+      <Link to={`/plants/${plant?.id}`}>
+        <img
+          className="w-[280px] h-[320px] rounded-md"
+          src={plant.images[imageIdx].src}
+        />
+      </Link>
       <div className="flex justify-between my-3">
         <div className="text-xl font-playfair text-emerald-700">
           {plant.name}
