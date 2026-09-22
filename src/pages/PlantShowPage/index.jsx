@@ -21,7 +21,10 @@ const PlantShowPage = () => {
 
   useEffect(() => {
     fetchPlant();
-  }, []);
+    // plantId must stay a dependency: React Router reuses this same component
+    // instance across /plants/:plantId navigations (no remount), so without it
+    // clicking from one plant to another would keep showing the first plant.
+  }, [plantId]);
 
   return (
     <>
