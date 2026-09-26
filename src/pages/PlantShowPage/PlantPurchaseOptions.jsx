@@ -17,7 +17,11 @@ const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
         <div
           className={`rounded-full w-10 h-10 ${POT_COLORS[image.pot_color]} ${idx === imageIdx && 'outline outline-offset-2 outline-slate-500'}`}
         ></div>
-        <div className="text-slate-500">{image.pot_color}</div>
+        <div
+          className={`${imageIdx === idx ? 'text-slate-700' : 'text-slate-500'} 'mt-1 text-slate-500`}
+        >
+          {image.pot_color}
+        </div>
       </div>
     );
   });
