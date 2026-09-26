@@ -1,18 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-const POT_COLORS = {
-  stone: 'bg-stone-200',
-  slate: 'bg-slate-300',
-  sky: 'bg-sky-700',
-  black: 'bg-gray-600',
-  white: 'bg-gray-50',
-  amber: 'bg-amber-600',
-};
-
-const getRandomIdx = (array) => {
-  return Math.floor(Math.random() * array.length);
-};
+import { POT_COLORS, getRandomIdx } from 'shared-components/util';
 
 const PlantItem = ({ plant }) => {
   // index will be used for plant image and pot color selected

@@ -1,9 +1,12 @@
 import { faCircleCheck, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import PlantHeading from './PlantHeading';
 import BenefitBox from './BenefitBox';
+import PlantPurchaseOptions from './PlantPurchaseOptions';
+import { useState } from 'react';
+import { getRandomIdx } from 'shared-components/util';
 
-const PlantInfoSection = (props) => {
-  const { plant } = props;
+const PlantInfoSection = ({ plant }) => {
+  const [imageIdx, setImageIdx] = useState(() => getRandomIdx(plant.images));
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -11,7 +14,7 @@ const PlantInfoSection = (props) => {
         <div className="block md:hidden mb-8">
           <PlantHeading plant={plant} />
         </div>
-        <img className="rounded-lg" src={plant.images[0].src} />
+        <img className="rounded-lg" src={plant.images[imageIdx].src} />
         <div className="flex mt-4">
           <BenefitBox
             icon={faCircleCheck}
@@ -34,6 +37,11 @@ const PlantInfoSection = (props) => {
         <p className="text-slate-600 leading-relaxed mt-4">
           {plant.description}
         </p>
+        <PlantPurchaseOptions
+          plant={plant}
+          imageIdx={imageIdx}
+          setImageIdx={setImageIdx}
+        />
       </div>
     </div>
   );
