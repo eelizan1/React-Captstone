@@ -4,12 +4,15 @@ import {
   faMinus,
   faPlus,
   faCartPlus,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { POT_COLORS } from 'shared-components/util';
 import { useState } from 'react';
+import * as cartService from 'services/cart';
 
 const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
   const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSetImageIdx = (idx) => {
     setImageIdx(idx);
   };
@@ -38,6 +41,22 @@ const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
     }
   };
 
+  const handleAddToCart = async () => {
+    setIsLoading(true);
+    const body = {
+      plantId: plant.id,
+      quantity,
+      potColor: plant.images[imageIdx].pot_color,
+    };
+
+    const response = await cartService.addToCart(body);
+    const data = await response.json();
+
+    setIsLoading(false);
+
+    console.log(data);
+  };
+
   return (
     <>
       <div className="my-10">
@@ -58,8 +77,18 @@ const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
           </button>
         </div>
 
-        <button className="rounded-full bg-emerald-700 text-white text-xl flex flex-1 justify-center items-center ml-2 hover:bg-emerald-800">
-          <FontAwesomeIcon icon={faCartPlus} className="text-2xl mr-1" />
+        <button
+          className="rounded-full bg-emerald-700 text-white text-xl flex flex-1 justify-center items-center ml-2 hover:bg-emerald-800"
+          onClick={handleAddToCart}
+        >
+          {isLoading ? (
+            <FontAwesomeIcon
+              icon={faSpinner}
+              className="text-2xl mr-2 animate-spin"
+            />
+          ) : (
+            <FontAwesomeIcon icon={faCartPlus} className="text-2xl mr-2" />
+          )}
           add to cart
         </button>
       </div>
