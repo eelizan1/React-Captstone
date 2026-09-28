@@ -34,7 +34,7 @@ const PlantInfoSection = ({ plant }) => {
           <PlantHeading plant={plant} />
         </div>
 
-        <p className="text-slate-600 leading-relaxed mt-4">
+        <p className="text-slate-600 leading-relaxed mt-6">
           {plant.description}
         </p>
         <PlantPurchaseOptions

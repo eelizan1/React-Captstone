@@ -1,9 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBrush } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBrush,
+  faMinus,
+  faPlus,
+  faCartPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { POT_COLORS } from 'shared-components/util';
 import { useState } from 'react';
 
 const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
+  const [quantity, setQuantity] = useState(1);
   const handleSetImageIdx = (idx) => {
     setImageIdx(idx);
   };
@@ -26,14 +32,38 @@ const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
     );
   });
 
+  const handleMinusButton = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
-    <div className="my-10">
-      <div className="flex text-emerald-700">
-        <FontAwesomeIcon icon={faBrush} className="mr-2 text-2xl" />
-        <div className="text-lg">Pot Colors</div>
+    <>
+      <div className="my-10">
+        <div className="flex text-emerald-700">
+          <FontAwesomeIcon icon={faBrush} className="mr-2 text-2xl" />
+          <div className="text-lg">Pot Colors</div>
+        </div>
+        <div className="flex my-4">{plantColors}</div>
       </div>
-      <div className="flex my-4">{plantColors}</div>
-    </div>
+      <div className="flex">
+        <div className="rounded-full flex items-center text-xl rounde-full text-slate-500 border-2 border-slate-300 px-3 py-4">
+          <button onClick={handleMinusButton}>
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+          <div className="mx-4 text-2xl text-emerald-700 ">{quantity}</div>
+          <button onClick={() => setQuantity(quantity + 1)}>
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        </div>
+
+        <button className="rounded-full bg-emerald-700 text-white text-xl flex flex-1 justify-center items-center ml-2 hover:bg-emerald-800">
+          <FontAwesomeIcon icon={faCartPlus} className="text-2xl mr-1" />
+          add to cart
+        </button>
+      </div>
+    </>
   );
 };
 
