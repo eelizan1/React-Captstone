@@ -4,57 +4,75 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
   faArrowRightFromBracket,
+  faCartShopping,
 } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import CartModal from './modals/CartModal';
 
 const NavBar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { username, signOut } = useContext(SessionContext);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const handleCartOpen = () => {
+    setCartOpen(true);
+  };
+
   return (
-    <nav
-      className="bg-emerald-800 flex justify-center font-lato"
-      onMouseLeave={() => setUserMenuOpen(false)}
-    >
-      <div className="flex items-center justify-between w-full max-w-5xl px-8 py-2">
-        <Link to="/plants">
-          <div className="text-2xl text-white font-playfair flex flex-col items-center">
-            <img
-              className="w-10"
-              src="https://static-task-assets.react-formula-staging.com/capstone_logo_light.png"
-            />
-            Rica's Plants
-          </div>
-        </Link>
-        <div className="flex flex-1 justify-end">
-          <div className="relative min-w-32">
+    <>
+      <nav
+        className="bg-emerald-800 flex justify-center font-lato"
+        onMouseLeave={() => setUserMenuOpen(false)}
+      >
+        <div className="flex items-center justify-between w-full max-w-5xl px-8 py-2">
+          <Link to="/plants">
+            <div className="text-2xl text-white font-playfair flex flex-col items-center">
+              <img
+                className="w-10"
+                src="https://static-task-assets.react-formula-staging.com/capstone_logo_light.png"
+              />
+              Rica's Plants
+            </div>
+          </Link>
+          <div className="flex flex-1 justify-end">
+            <div className="relative min-w-32">
+              <button
+                className="text-emerald-200 flex items-center"
+                onClick={() => {
+                  setUserMenuOpen(true);
+                }}
+              >
+                <FontAwesomeIcon icon={faUser} className="mr-2 text-xl" />
+                {username}
+              </button>
+              {userMenuOpen && (
+                <div className="absolute left-0 mt-20 bg-white bottom-[-46px] rounded-md shadow-md">
+                  <button
+                    className="text-slate-500 hover:text-emerald-700 px-4 py-2"
+                    onClick={signOut} // call global signout from context to delete session token
+                  >
+                    <FontAwesomeIcon
+                      icon={faArrowRightFromBracket}
+                      className="mr-2"
+                    />
+                    sign out
+                  </button>
+                </div>
+              )}
+            </div>
             <button
-              className="text-emerald-200 flex items-center"
-              onClick={() => {
-                setUserMenuOpen(true);
-              }}
+              className="text-emerald-200 flex items-center text-emerald-200"
+              onClick={handleCartOpen}
             >
-              <FontAwesomeIcon icon={faUser} className="mr-2 text-xl" />
-              {username}
+              <FontAwesomeIcon icon={faCartShopping} className="mr-2 text-xl" />
+              cart
             </button>
-            {userMenuOpen && (
-              <div className="absolute left-0 mt-20 bg-white bottom-[-46px] rounded-md shadow-md">
-                <button
-                  className="text-slate-500 hover:text-emerald-700 px-4 py-2"
-                  onClick={signOut} // call global signout from context to delete session token
-                >
-                  <FontAwesomeIcon
-                    icon={faArrowRightFromBracket}
-                    className="mr-2"
-                  />
-                  sign out
-                </button>
-              </div>
-            )}
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      {cartOpen && <CartModal />}
+    </>
   );
 };
 
