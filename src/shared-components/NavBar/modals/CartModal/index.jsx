@@ -5,6 +5,7 @@ import * as cartService from 'services/cart';
 import LoadingSpinner from 'shared-components/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
+import CartItem from './CartItem';
 
 const CartModal = ({ setCartOpen }) => {
   const { username } = useContext(SessionContext);
@@ -18,6 +19,10 @@ const CartModal = ({ setCartOpen }) => {
     setCart(data);
     setLoading(false);
   };
+
+  const cartItems = cart.map((item, idx) => {
+    return <CartItem item={item} key={idx} />;
+  });
 
   useEffect(() => {
     fetchCart();
@@ -39,7 +44,7 @@ const CartModal = ({ setCartOpen }) => {
           <div className="bg-emerald-800 text-white font-playfair text-center py-7 text-3xl shadow-md">
             {username}'s cart
           </div>
-          <div>{loading ? <LoadingSpinner /> : <>stuff</>}</div>
+          <div>{loading ? <LoadingSpinner /> : cartItems}</div>
         </div>
       </div>
     </RemoveScroll>
