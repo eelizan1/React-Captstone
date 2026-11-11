@@ -7,3 +7,5 @@ export const addToCart = ({ plantId, quantity, potColor }) => {
   };
   return apiFetch('POST', `/cart/plants/${plantId}`, body);
 };
+
+export const getCart = () => apiFetch('GET', '/cart');

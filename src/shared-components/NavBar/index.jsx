@@ -71,7 +71,7 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
-      {cartOpen && <CartModal />}
+      {cartOpen && <CartModal setCartOpen={setCartOpen} />}
     </>
   );
 };
