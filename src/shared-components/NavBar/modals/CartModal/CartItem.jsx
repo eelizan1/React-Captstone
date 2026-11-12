@@ -2,10 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import React from 'react';
 
-const CartItem = ({ item }) => {
-  console.log(item);
+const CartItem = ({ item, handleRemoveCartItem }) => {
   return (
-    <div className="flex mx-6 my-8">
+    <div className="flex">
       <img className="rounded-md w-28" src={item.image_src} />
       <div className="flex justify-between flex-1 mx-4">
         <div className="">
@@ -25,8 +24,11 @@ const CartItem = ({ item }) => {
           <div className="text-slate-500">
             ${item.price_per_unit * item.quantity}
           </div>
-          <button className="text-sm text-slate-400">
-            <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
+          <button
+            className="text-sm text-slate-400 hover:text-red-800"
+            onClick={() => handleRemoveCartItem(item.id)}
+          >
+            <FontAwesomeIcon icon={faTrashCan} className="mr-1 text-base" />
             remove
           </button>
         </div>

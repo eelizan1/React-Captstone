@@ -20,13 +20,32 @@ const CartModal = ({ setCartOpen }) => {
     setLoading(false);
   };
 
-  const cartItems = cart.map((item, idx) => {
-    return <CartItem item={item} key={idx} />;
-  });
-
   useEffect(() => {
     fetchCart();
   }, []);
+
+  const handleRemoveCartItem = async (id) => {
+    const previousCart = cart; // snapshot to roll back to if the delete fails
+    setCart(cart.filter((item) => item.id !== id)); // optimistically remove from the UI
+    const response = await cartService.removeItemFromCart({ itemId: id });
+    if (response.status !== 200) {
+      console.log('Error deleting item from cart');
+      setCart(previousCart);
+      return;
+    }
+    console.log('Removed item from cart with id: ' + id);
+  };
+
+  const cartItems = cart.map((item, idx) => {
+    return (
+      <div
+        className={`${idx === 0 ? '' : 'border-t border-slate-200'} mx-5 mt-8 pt-8`}
+        key={item.id}
+      >
+        <CartItem item={item} handleRemoveCartItem={handleRemoveCartItem} />
+      </div>
+    );
+  });
 
   return (
     <RemoveScroll>
