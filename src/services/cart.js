@@ -9,3 +9,8 @@ export const addToCart = ({ plantId, quantity, potColor }) => {
 };
 
 export const getCart = () => apiFetch('GET', '/cart');
+
+// itemId is the id coming from the getCart api NOT plantId
+export const removeItemFromCart = ({ itemId }) => {
+  return apiFetch('DELETE', `/cart/${itemId}`);
+};

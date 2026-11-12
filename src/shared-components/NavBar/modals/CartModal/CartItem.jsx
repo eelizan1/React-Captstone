@@ -1,6 +1,9 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import React from 'react';
 
 const CartItem = ({ item }) => {
+  console.log(item);
   return (
     <div className="flex mx-6 my-8">
       <img className="rounded-md w-28" src={item.image_src} />
@@ -18,8 +21,14 @@ const CartItem = ({ item }) => {
             {item.quantity}
           </div>
         </div>
-        <div className="text-slate-500">
-          ${item.price_per_unit * item.quantity}
+        <div className="flex flex-col justify-between">
+          <div className="text-slate-500">
+            ${item.price_per_unit * item.quantity}
+          </div>
+          <button className="text-sm text-slate-400">
+            <FontAwesomeIcon icon={faTrashCan} className="mr-1" />
+            remove
+          </button>
         </div>
       </div>
     </div>
