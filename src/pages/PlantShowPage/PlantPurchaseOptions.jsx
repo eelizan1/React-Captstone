@@ -53,8 +53,6 @@ const PlantPurchaseOptions = ({ plant, imageIdx, setImageIdx }) => {
     const data = await response.json();
 
     setIsLoading(false);
-
-    console.log(data);
   };
 
   return (
